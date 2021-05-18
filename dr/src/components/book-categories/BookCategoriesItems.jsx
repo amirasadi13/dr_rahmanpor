@@ -17,7 +17,7 @@ const BookCategoriesItems = ({ image_url , title, id, hasOfflinePayment,hasOnlin
     return(
 
         <NavLink to="/new-book" className="text-dark">
-        <div className="mx-3 my-3" onClick={() => setCategory(id, title)}>
+        <div className="mx-1 my-3" onClick={() => setCategory(id, title)}>
             <img src={image_url} className="BookCategoriesImage" alt=""/>
             <p className="text-center mt-2">
                 {title}

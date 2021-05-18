@@ -1,16 +1,24 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import SimpleReactValidator from "simple-react-validator";
+import Countdown from 'react-countdown';
+import {useToasts} from "react-toast-notifications";
 
 
 const ReciveCode = ({history}) => {
 
+    const { addToast } = useToasts();
     const [code , setCode] = useState("")
     const [isActive, setIsActive] = useState(false)
     const [,forceUpdate] = useState();
     const token = localStorage.getItem("token");
+    const mobile_number = localStorage.getItem("mobile_number");
+    const [resend, setResend] = useState(false);
 
-    if (token.length !== 0){
+
+    if (token === null || token === ''){
+        console.log('hello')
+    }else {
         history.replace('/index');
     }
 
@@ -48,7 +56,47 @@ const ReciveCode = ({history}) => {
         }
 
 
+
     }
+
+    const completeTime = () => {
+
+        addToast('زمان شما به پایان رسید', {
+            appearance: 'error',
+            autoDismiss: true,
+        })
+        setResend(true);
+
+    }
+
+    const resend_code = () => {
+
+        const mobile_number = localStorage.getItem("mobile_number");
+        const mobile_number_org = { mobile_number }
+        console.log(JSON.stringify(mobile_number_org))
+        axios.post('https://drrahmatpour.com/api/send-code/', JSON.stringify(mobile_number_org))
+            .then(response => {
+                console.log(response)
+                localStorage.setItem("code", response.data.code);
+                localStorage.setItem("otp_token", response.data.otp_token);
+                localStorage.setItem("mobile_number", mobile_number);
+                setResend(false);
+                addToast('کد مجددا ارسال گردید', {
+                    appearance: 'success',
+                    autoDismiss: true,
+                })
+                forceUpdate(1);
+
+            })
+            .catch(ex => {
+            //     addToast(ex.response.data.message.error, {
+            //     appearance: 'error',
+            //     autoDismiss: true,
+            // })
+            })
+
+    }
+
     if (isActive === true){
         return(
             <div className="LoadingBackground text-center">
@@ -68,17 +116,19 @@ const ReciveCode = ({history}) => {
 
             <div>
 
-                <header className="LoginHeader">
+                <header className="LoginHeader fixed-top">
                 </header>
                 <div className="container text-center">
 
-                    <h3 className="mt-5">
-                        دکتر رحمت پور
-                    </h3>
 
                     <div className="LoginMargin">
-                        <p className="text-dark">
-                            کد به شماره 0912345678 پیامک شد
+                        <h3 className="mt-5">
+                            دکتر رحمت پور
+                        </h3>
+                        <p className="text-dark mt-5">
+                            کد به شماره
+                            { mobile_number }
+                            پیامک شد
                         </p>
                         <hr/>
                         <p className="text-mute small">کد دریافتی را وارد نمایید</p>
@@ -96,7 +146,18 @@ const ReciveCode = ({history}) => {
                                     />
                                     {validator.current.message("code", code, "required|min:4|max:4")}
                                     <br/>
-                                    <p className="text-right small mx-5">ارسال مجدد کد</p>
+                                    <p className="text-right small mx-5">
+                                        <div className="text-center">
+                                        <Countdown
+                                            date={Date.now() + 120000}
+                                            onComplete={completeTime}
+                                        />
+                                        <br/>
+                                            <p onClick={resend ? resend_code : null} style={resend ? {color:"black"} : {color:"gray"}}>
+                                        ارسال مجدد کد
+                                            </p>
+                                        </div>
+                                    </p>
                                     <button className="btn buttonGreen Inputs px-5 py-2">
                                         ورود
                                     </button>
@@ -106,7 +167,7 @@ const ReciveCode = ({history}) => {
                     </div>
 
                 </div>
-                <header className="ResiveHeaderBottom">
+                <header className="ResiveHeaderBottom fixed-bottom">
                 </header>
 
             </div>

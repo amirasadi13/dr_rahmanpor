@@ -2,10 +2,12 @@ import React, {useRef, useState} from 'react';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
 import SimpleReactValidator from 'simple-react-validator';
+import {useToasts} from "react-toast-notifications";
 
 
 const SendCode = ({history}) => {
 
+    const { addToast } = useToasts();
     const [mobile_number, setMobileNumber] = useState("")
     const [isActive, setIsActive] = useState(false)
     const [,forceUpdate] = useState();
@@ -19,7 +21,9 @@ const SendCode = ({history}) => {
         element: message => <small className="TextGray mt-2 small"> {message} </small>
     }));
 
-    if (token.length !== 0){
+    if (token === null || token === ''){
+        console.log('hello')
+    }else {
         history.replace('/index');
     }
 
@@ -37,7 +41,12 @@ const SendCode = ({history}) => {
                     setIsActive(false);
                     history.push("/recive-code")
                 })
-                .catch(ex => console.log(ex))
+                .catch(ex => {
+                    // addToast(ex.response.data.message.error, {
+                    //     appearance: 'error',
+                    //     autoDismiss: true,
+                    // })
+                })
         }else {
             validator.current.showMessages("phone");
             forceUpdate(1)
@@ -63,17 +72,17 @@ const SendCode = ({history}) => {
 
             <div>
                 <div className="HeaderGrayBackground">
-                    <header className="LoginHeader">
-                        <h3 className="Title">
-                            دکتر رحمت پور
-                        </h3>
+                    <header className="LoginHeader fixed-top">
                     </header>
                 </div>
 
 
-                <div className="container text-center">
+                <div className="container text-center mt-5">
                     <div className="LoginMargin">
-                        <p className="text-mute">برای ورود شماره موبایل خود را وارد کنید</p>
+                        <h3 className="Title mt-5">
+                            دکتر رحمت پور
+                        </h3>
+                        <p className="text-mute mt-3">برای ورود شماره موبایل خود را وارد کنید</p>
                         <div className="row">
                             <div className="col-11 col-md-6 mx-auto">
                                 <form className="form" onSubmit={handleSubmit}>
@@ -96,7 +105,7 @@ const SendCode = ({history}) => {
                     </div>
                 </div>
 
-                <header className="LoginHeaderBottom">
+                <header className="LoginHeaderBottom fixed-bottom">
                 </header>
 
             </div>

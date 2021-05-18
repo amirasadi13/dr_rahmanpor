@@ -7,10 +7,10 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter } from 'react-router-dom';
 
 
-
 render( 
-<BrowserRouter >
-    <App />
+    <BrowserRouter >
+        <App />
     </BrowserRouter>,
     document.getElementById('root')
 );
+

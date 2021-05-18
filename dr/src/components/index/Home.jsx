@@ -5,7 +5,6 @@ import appointment_scheduling from '../images/icons8-appointment_scheduling.svg'
 import axios from 'axios';
 import Carousel from 'nuka-carousel';
 
-
 const Home = ({history}) => {
 
     const [educations, setEducations] = useState([])
@@ -64,9 +63,7 @@ const Home = ({history}) => {
             <div className="pt-3 container">
 
                 <div className="row d-none d-md-block">
-
                     <div className="col-11 mx-auto h-50">
-
                         <Carousel className="">
                                 {educations.map(item =>
                                     <div key={item.id} className="my-3 text-center ml-2 pb-5">
@@ -88,15 +85,6 @@ const Home = ({history}) => {
                     </div>
 
                 </div>
-
-                {/*<Carousel>*/}
-                {/*    <Carousel.Item>*/}
-                {/*        <Carousel.Caption>*/}
-                {/*            <h3>First slide label</h3>*/}
-                {/*            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>*/}
-                {/*        </Carousel.Caption>*/}
-                {/*    </Carousel.Item>*/}
-                {/*</Carousel>*/}
 
                 <div className="row">
 
@@ -141,9 +129,10 @@ const Home = ({history}) => {
                         </NavLink>
                     </div>
                 </div>
+
+
                 <div className="d-block d-md-none">
                     <p className="mx-3 mt-3">
-
                         آموزش ها
                     </p>
                     <div className="scrolling-wrapper">

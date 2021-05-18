@@ -273,7 +273,7 @@ const NewBook = ({history}) => {
                                 <div className="scrolling-wrapper">
 
                                     {days.map(item =>
-                                        <div id={item.date} key={item.id} className="card my-2 p-4 text-center ml-2"
+                                        <div id={item.date} key={item.id} className="card my-2 p-4 text-center mx-2"
                                              style={item.is_active ? {backgroundColor: "#fff"} : {backgroundColor: "#eee"}}>
                                             <div onClick={() =>
                                                 changeBackground(item.date)}>
