@@ -5,6 +5,7 @@ import Countdown from 'react-countdown';
 import {useToasts} from "react-toast-notifications";
 
 
+
 const ReciveCode = ({history}) => {
 
     const { addToast } = useToasts();
@@ -14,7 +15,22 @@ const ReciveCode = ({history}) => {
     const token = localStorage.getItem("token");
     const mobile_number = localStorage.getItem("mobile_number");
     const [resend, setResend] = useState(false);
+    const [seconds, setSeconds] = React.useState(59);
+    const [minutes, setMinutes] = React.useState(1);
 
+
+    React.useEffect(() => {
+        if (seconds > 0 && minutes !== 0) {
+            setTimeout(() => setSeconds(seconds - 1), 1000);
+        } else if (seconds === 0 && minutes > 0){
+            setSeconds(59);
+            setMinutes(0);
+        }else if (seconds > 0){
+            setTimeout(() => setSeconds(seconds - 1), 1000);
+        } else {
+            setResend(true)
+        }
+    });
 
     if (token === null || token === ''){
         console.log('hello')
@@ -59,15 +75,7 @@ const ReciveCode = ({history}) => {
 
     }
 
-    const completeTime = () => {
 
-        addToast('زمان شما به پایان رسید', {
-            appearance: 'error',
-            autoDismiss: true,
-        })
-        setResend(true);
-
-    }
 
     const resend_code = () => {
 
@@ -86,6 +94,9 @@ const ReciveCode = ({history}) => {
                     autoDismiss: true,
                 })
                 forceUpdate(1);
+                setSeconds(59);
+                setMinutes(1);
+                setResend(false)
 
             })
             .catch(ex => {
@@ -96,6 +107,8 @@ const ReciveCode = ({history}) => {
             })
 
     }
+
+
 
     if (isActive === true){
         return(
@@ -119,7 +132,6 @@ const ReciveCode = ({history}) => {
                 <header className="LoginHeader fixed-top">
                 </header>
                 <div className="container text-center">
-
 
                     <div className="LoginMargin">
                         <h3 className="mt-5">
@@ -148,14 +160,18 @@ const ReciveCode = ({history}) => {
                                     <br/>
                                     <p className="text-right small mx-5">
                                         <div className="text-center">
-                                        <Countdown
-                                            date={Date.now() + 120000}
-                                            onComplete={completeTime}
-                                        />
                                         <br/>
-                                            <p onClick={resend ? resend_code : null} style={resend ? {color:"black"} : {color:"gray"}}>
-                                        ارسال مجدد کد
-                                            </p>
+                                            { resend ? (
+                                                    <p onClick={resend_code} style={resend ? {color:"black"} : {color:"gray"}}>
+                                                        ارسال مجدد کد
+                                                    </p>
+                                                ) : (
+                                                    <p>
+                                                        {minutes}
+                                                        :
+                                                        {seconds}
+                                                    </p>
+                                                )}
                                         </div>
                                     </p>
                                     <button className="btn buttonGreen Inputs px-5 py-2">

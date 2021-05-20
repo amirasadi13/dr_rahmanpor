@@ -2,6 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="Add-to-homescreen React Live Demo" name="application-name">
+    <meta content="Add-to-homescreen React Live Demo" name="apple-mobile-web-app-title">
+    <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+    <meta content="/" name="msapplication-starturl">
     <link rel="icon" href="%PUBLIC_URL%/logo-dark2.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,10 +18,25 @@
       content="Web site created using create-react-app"
     />
     <title>React App</title>
+
   </head>
   <body>
+  <script type="application/javascript">
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('serviceWorker.js', { scope: '/add-to-homescreen-react/' }).then(function (registration) {
+          // Registration was successful
+          console.debug('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          // registration failed :(
+          console.debug('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

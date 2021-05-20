@@ -3,6 +3,8 @@ import chash from '../images/icons8-receive_euro.svg';
 import online from '../images/icons8-check_for_payment.svg';
 import axios from "axios";
 import { useToasts } from 'react-toast-notifications';
+import {ArrowLeftShort} from "react-bootstrap-icons";
+import {NavLink} from "react-router-dom";
 
 
 const PaymentBook = ({history}) => {
@@ -91,10 +93,13 @@ const PaymentBook = ({history}) => {
     return(
 
         <div>
-            <div className="IndexHeader">
+            <div className="IndexHeader d-flex justify-content-between">
                 <p className="pt-4 px-4">
                    پرداخت
                 </p>
+                <NavLink to="/book-categories" className="mt-4 mx-3 text-decoration-none text-dark">
+                    <ArrowLeftShort className="bg-light text-dark rounded-circle" size={32}/>
+                </NavLink>
             </div>
 
             <div className="IndexMainLayout">

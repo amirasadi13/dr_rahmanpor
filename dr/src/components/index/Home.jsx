@@ -43,6 +43,8 @@ const Home = ({history}) => {
     console.log(educations)
 
 
+
+
     if (isActive === true){
         return(
             <div className="LoadingBackground text-center">
@@ -61,6 +63,8 @@ const Home = ({history}) => {
         return (
 
             <div className="pt-3 container">
+
+
 
                 <div className="row d-none d-md-block">
                     <div className="col-11 mx-auto h-50">
@@ -152,6 +156,7 @@ const Home = ({history}) => {
                 </div>
 
             </div>
+
         );
     }
 

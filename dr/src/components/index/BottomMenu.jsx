@@ -3,6 +3,8 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {HouseDoor, Person, Calendar2Week, GeoAlt} from 'react-bootstrap-icons';
 import {useHistory} from "react-router";
+import logo from "../images/logo-dark2.png";
+
 
 const BottomMenu = () => {
     const [value, setValue] = React.useState('index');
@@ -29,12 +31,14 @@ const BottomMenu = () => {
     };
 
     return (
-        <BottomNavigation value={value} onChange={handleChange} className={ is_logged_in ? "fixed-bottom py-3" : "d-none" }>
-            <BottomNavigationAction value="index" icon={<HouseDoor size={28}/>}/>
-            <BottomNavigationAction value="profile" icon={<Person size={28}/>}/>
-            <BottomNavigationAction value="my-books" icon={<Calendar2Week size={28}/>}/>
-            <BottomNavigationAction value="clinic-info" icon={<GeoAlt size={28}/>}/>
-        </BottomNavigation>
+        <div>
+            <BottomNavigation value={value} onChange={handleChange} className={ is_logged_in ? "fixed-bottom py-3" : "d-none" }>
+                <BottomNavigationAction value="index" icon={<HouseDoor size={28}/>}/>
+                <BottomNavigationAction value="profile" icon={<Person size={28}/>}/>
+                <BottomNavigationAction value="my-books" icon={<Calendar2Week size={28}/>}/>
+                <BottomNavigationAction value="clinic-info" icon={<GeoAlt size={28}/>}/>
+            </BottomNavigation>
+        </div>
     );
 }
 

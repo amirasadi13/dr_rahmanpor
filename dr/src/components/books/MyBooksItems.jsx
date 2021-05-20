@@ -3,6 +3,7 @@ import moment from 'jalali-moment';
 import { useState } from 'react';
 import  {ArrowRepeat, Calendar2Week, PersonBadgeFill, CreditCard} from 'react-bootstrap-icons';
 import axios from "axios";
+import {Button, Modal} from "react-bootstrap";
 
 
 const MyBooksItems = ({date, patient_name, payment_method_title, status_title, id, status_key, setIsActive, setMyBooks}) => {
@@ -14,12 +15,17 @@ const MyBooksItems = ({date, patient_name, payment_method_title, status_title, i
     const month_num = moment(date, 'YYYY/MM/DD').locale('fa').format('MM');
     const visit_date =  moment(date, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD');
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+
     const token = localStorage.getItem("token")
 
     const cancel = (id) => {
 
         setIsActive(true);
-        setMyBooks([]);
         const cancel_json = 'cancel'
 
         axios.put("https://drrahmatpour.com/api/book/" + id + "/cancel",
@@ -30,7 +36,7 @@ const MyBooksItems = ({date, patient_name, payment_method_title, status_title, i
             }
         })
             .then(response => {
-                console.log(response)
+                setMyBooks([]);
             })
             .catch(ex => console.log(ex))
 
@@ -90,7 +96,7 @@ const MyBooksItems = ({date, patient_name, payment_method_title, status_title, i
     return(
 
 
-        <div className="container" onClick={() => cancel(id)}>
+        <div className="container">
 
 
             <div className="row shadow mt-3" style={{borderRadius:"1em"}}>
@@ -152,7 +158,7 @@ const MyBooksItems = ({date, patient_name, payment_method_title, status_title, i
                         null
                         :
                         (
-                            <button className="btn btn-danger btn-sm px-5 btn-block" style={{borderRadius: "1em"}}>
+                            <button onClick={handleShow} className="btn btn-danger btn-sm px-5 btn-block" style={{borderRadius: "1em"}}>
                                 <small>
                                     لغو
                                 </small>
@@ -162,6 +168,22 @@ const MyBooksItems = ({date, patient_name, payment_method_title, status_title, i
                 </div>
 
             </div>
+
+            <Modal show={show} onHide={handleClose} animation={true} centered>
+                <Modal.Body>
+                    <p className="text-center">
+                    آیا از لغو نوبت اطمینان دارید ؟
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="btn-lg" variant="secondary" onClick={handleClose}>
+                        خیر
+                    </Button>
+                    <Button className="btn-lg" variant="primary" onClick={() => cancel(id)}>
+                        بله
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
 
         </div>

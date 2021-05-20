@@ -5,6 +5,7 @@ import { useState } from "react";
 import moment from "jalali-moment";
 import SimpleReactValidator from "simple-react-validator";
 import {useToasts} from "react-toast-notifications";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -200,10 +201,13 @@ const NewBook = ({history}) => {
 
         return (
             <div>
-                <div className="IndexHeader">
-                    <p className="pt-4 px-4">
+                <div className="IndexHeader d-flex justify-content-between">
+                    <h6 className="pt-4 px-4">
                         نوبت گیری
-                    </p>
+                    </h6>
+                    <NavLink to="/book-categories" className="mt-4 mx-3 text-decoration-none text-dark">
+                        <ArrowLeftShort className="bg-light text-dark rounded-circle" size={32}/>
+                    </NavLink>
                 </div>
 
                 <div className="IndexMainLayout">
@@ -273,10 +277,9 @@ const NewBook = ({history}) => {
                                 <div className="scrolling-wrapper">
 
                                     {days.map(item =>
-                                        <div id={item.date} key={item.id} className="card my-2 p-4 text-center mx-2"
-                                             style={item.is_active ? {backgroundColor: "#fff"} : {backgroundColor: "#eee"}}>
-                                            <div onClick={() =>
-                                                changeBackground(item.date)}>
+                                        <div id={item.date} key={item.id} className="card my-2 mx-2">
+                                            { item.is_active ? (
+                                            <div className=" p-4 text-center "  onClick={() => changeBackground(item.date)} >
                                                 <p>
                                                     {item.faDay}
                                                 </p>
@@ -284,6 +287,16 @@ const NewBook = ({history}) => {
                                                     {item.weekDay}
                                                 </p>
                                             </div>
+                                            ) : (
+                                                <div className=" p-4 text-center " style={{backgroundColor: "#eee"}}>
+                                                    <p>
+                                                        {item.faDay}
+                                                    </p>
+                                                    <p>
+                                                        {item.weekDay}
+                                                    </p>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
 

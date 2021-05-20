@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import BookCategoriesItems from './BookCategoriesItems';
+import {ArrowLeftShort} from "react-bootstrap-icons";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -74,10 +76,13 @@ const BookCategories = ({history}) => {
         return (
 
             <div>
-                <div className="IndexHeader">
+                <div className="IndexHeader d-flex justify-content-between">
                     <p className="pt-4 px-4">
                         نوبت گیری
                     </p>
+                    <NavLink to="/index" className="mt-4 mx-3 text-decoration-none text-dark">
+                        <ArrowLeftShort className="bg-light text-dark rounded-circle" size={32}/>
+                    </NavLink>
                 </div>
 
                 <div className="IndexMainLayout">
