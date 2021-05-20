@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import React from "react";
 import {ToastProvider} from "react-toast-notifications";
 import Main from "./components/index/Main";
+import Install from "./components/index/Install";
 
 
 
@@ -32,6 +33,7 @@ function App() {
                     <Switch>
                         <Route path = "/" exact component = { SendCode }/>
                         <Route path = "/recive-code" component = { ReciveCode }/>
+                        <Route path= "/install" component={Install}/>
                         <Main/>
 
                     </Switch>

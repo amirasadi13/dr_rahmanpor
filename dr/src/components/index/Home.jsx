@@ -4,12 +4,15 @@ import logo from '../images/icons8-stethoscope.svg';
 import appointment_scheduling from '../images/icons8-appointment_scheduling.svg';
 import axios from 'axios';
 import Carousel from 'nuka-carousel';
+import {Button, Modal} from "react-bootstrap";
+import darkLogo from '../images/logo-dark2.png';
 
 const Home = ({history}) => {
 
     const [educations, setEducations] = useState([])
     const [isActive, setIsActive] = useState(true)
     const token = localStorage.getItem("token");
+    const [isIphone, setIsIphone] = useState(false);
 
 
     if(educations.length === 0){
@@ -39,8 +42,26 @@ const Home = ({history}) => {
     }
 
 
+    if (window.navigator.platform === 'iPhone' && isIphone === false){
 
-    console.log(educations)
+        setIsIphone(true);
+
+    }else if (window.navigator.platform === 'iPad' && isIphone === false){
+
+        setIsIphone(true);
+
+    }
+
+    const install = () => {
+
+        history.push('/install');
+
+    }
+
+
+    const [show, setShow] = useState(true);
+    const handleClose = () => setShow(true);
+    const handleShow = () => setShow(false);
 
 
 
@@ -64,6 +85,25 @@ const Home = ({history}) => {
 
             <div className="pt-3 container">
 
+                {isIphone ? (
+                <Modal show={show} onHide={handleClose} animation={true} centered>
+                    <Modal.Body>
+                        <p className="text-center">
+                            <img src={ darkLogo } alt="logo"/>
+                            نصب نسخه ios
+                        </p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button className="Inputs px-3" variant="secondary" onClick={handleShow}>
+                            بعدا
+                        </Button>
+
+                        <Button className="Inputs btn-danger px-3" variant="primary" onClick={install}>
+                            نصب
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                ) : null }
 
 
                 <div className="row d-none d-md-block">

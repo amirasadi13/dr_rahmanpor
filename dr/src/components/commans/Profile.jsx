@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {Button} from "react-bootstrap";
+import {NavLink} from "react-router-dom";
 
 
 const Profile = ({history}) => {
@@ -75,10 +77,16 @@ const Profile = ({history}) => {
 
 
     }
-
-
-                                                                                                                                                                            if (token === ''){
+    if (token === ''){
         history.replace('/')
+    }
+
+
+    const [isIphone , setIsIphone] = useState(false);
+    if (window.navigator.platform === 'iPhone' && isIphone === false){
+
+        setIsIphone(true);
+
     }
 
         return(
@@ -113,6 +121,13 @@ const Profile = ({history}) => {
                                     <p onClick={logout} className="btn btn-secondary px-5 Inputs col-11 col-md-4 mx-auto mt-4">
                                         خروج از اکانت
                                     </p>
+                                    { isIphone ?
+                                    <NavLink className="btn btn-danger px-5 Inputs col-11 col-md-4 mx-auto mt-4" to="/install">
+                                        نصب اپلیکیشن
+                                    </NavLink>
+                                        :
+                                        null }
+
                                 </form>
                             </div>
                         </div>

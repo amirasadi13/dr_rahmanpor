@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Home from './Home';
+import {Button, Modal} from "react-bootstrap";
 
 const Index = ({history}) => {
 
     const token = localStorage.getItem("token")
+
+
 
     if (token === ''){
         history.replace('/')
@@ -19,8 +22,10 @@ const Index = ({history}) => {
                 </p>
             </div>
 
-            <div class="IndexMainLayout">
-                
+            <div className="IndexMainLayout">
+
+
+
                 <Switch>
 
                     <Route path="/index" component={Home}/>
